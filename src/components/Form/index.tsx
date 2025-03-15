@@ -16,9 +16,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useGetPropriedades } from "../../hooks/queries/use-get-propriedades";
-import { DefaultForm, formSchema } from "./form-schema";
 import { useGetLaboratorios } from "../../hooks/queries/use-get-laboratorios";
+import { useGetPropriedades } from "../../hooks/queries/use-get-propriedades";
+import { Toast } from "../Toast";
+import { DefaultForm, formSchema } from "./form-schema";
 
 export function Form() {
   const {
@@ -30,8 +31,18 @@ export function Form() {
     resolver: zodResolver(formSchema),
   });
 
-  const { data: propriedades } = useGetPropriedades();
-  const { data: laboratorios } = useGetLaboratorios();
+  const { data: propriedades, isError: isErroPropriedades } =
+    useGetPropriedades();
+  const { data: laboratorios, isError: isErroLaboratorios } =
+    useGetLaboratorios();
+
+  if (isErroPropriedades) {
+    Toast("Erro ao carregar propriedades. Tente novamente.", "error");
+  }
+
+  if (isErroLaboratorios) {
+    Toast("Erro ao carregar laboratórios. Tente novamente.", "error");
+  }
 
   const propriedadeInput = watch("propriedade");
 
@@ -62,8 +73,12 @@ export function Form() {
       },
       observacoes: data.observacoes || "",
     };
-
+    Toast("Cadastro realizado com sucesso", "success");
     console.log(payload);
+  };
+
+  const onError = () => {
+    Toast("Por favor, corrija os erros no formulário.", "error");
   };
 
   return (
@@ -77,7 +92,7 @@ export function Form() {
             <Button
               type="submit"
               sx={{ color: "#fff" }}
-              onClick={handleSubmit(onSubmit)}
+              onClick={handleSubmit(onSubmit, onError)}
             >
               Salvar
             </Button>
