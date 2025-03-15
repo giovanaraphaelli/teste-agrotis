@@ -12,7 +12,12 @@ export function App() {
       <ThemeProvider theme={theme}>
         <Box height="100vh" display="flex" flexDirection="column">
           <Header />
-          <Box flex={1} p="2rem 1rem" overflow="auto">
+          <Box
+            flex={1}
+            p="2rem 1rem"
+            overflow="auto"
+            bgcolor="background.default"
+          >
             <Form />
           </Box>
         </Box>
