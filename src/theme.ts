@@ -37,6 +37,7 @@ export const theme = createTheme({
         },
       },
     },
+
     MuiFilledInput: {
       styleOverrides: {
         root: {
@@ -46,6 +47,16 @@ export const theme = createTheme({
           },
           "&.Mui-focused": {
             backgroundColor: "#ffffff",
+          },
+        },
+      },
+    },
+
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "& .MuiSelect-select": {
+            padding: "12px",
           },
         },
       },
