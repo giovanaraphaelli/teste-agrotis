@@ -1,54 +1,47 @@
-# React + TypeScript + Vite
+# FORMULÁRIO - Teste front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto faz parte de um desafio técnico para a vaga de desenvolvedor front-end. O objetivo é desenvolver formulário funcional seguindo template.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **ReactJS**
+- **Typescript**
+- **Material UI**
+- **React Hook Form**
+- **Zod**
+- **React Query**
+- **Axios**
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [x] **Formulário** – Permite o cadastro de informações preenchidas pelo usuário.
+- [x] **Validação do formulário** – Utiliza _Zod_ e _React Hook Form_ para validar os campos obrigatórios e formatos esperados.
+- [x] **Listagem de propriedades e laboratórios** – Realiza requisições assíncronas com _Axios_, utilizando _React Query_ para gerenciamento do cache e estado dos dados.
+- [x] **Exibição de mensagens (Toast)** – Exibe notificações de erro e sucesso no envio do formulário.
+- [x] **Envio de dados** – Gera um payload estruturado com as informações do formulário.
+- [x] **Estilização e Componentização** – Utiliza _Material UI_ para a criação da interface.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Como Executar o Projeto
+
+### 1. Clonar o Repositório
+
+```sh
+  git clone https://github.com/giovanaraphaelli/teste-agrotis
+  cd teste-agrotis
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar Dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```sh
+  npm install
+  # ou
+  yarn install
+```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 3. Executar o Projeto
+
+```sh
+  npm run dev
+  # ou
+  yarn dev
 ```
