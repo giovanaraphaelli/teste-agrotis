@@ -83,7 +83,7 @@ export function Form() {
   };
 
   return (
-    <Box maxWidth="lg" margin="auto">
+    <Box maxWidth="lg" margin="auto" component="form">
       <Card variant="outlined">
         <AppBar position="static" elevation={0}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
