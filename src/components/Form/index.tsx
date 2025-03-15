@@ -10,21 +10,30 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useGetPropriedades } from "../../hooks/queries/use-get-propriedades";
 import { DefaultForm, formSchema } from "./form-schema";
 
 export function Form() {
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(formSchema),
   });
+
+  const { data: propriedades } = useGetPropriedades();
+  const propriedadeInput = watch("propriedade");
+  const findPropriedadeByName = (nome: string) => {
+    return propriedades?.find((prop) => prop.nome === nome);
+  };
 
   const onSubmit = (data: DefaultForm) => {
     console.log(data);
@@ -49,7 +58,7 @@ export function Form() {
         </AppBar>
 
         <CardContent>
-          <Grid2 container spacing={2}>
+          <Grid2 container spacing={4}>
             <Grid2 size={6}>
               <TextField
                 id="nome"
@@ -103,20 +112,44 @@ export function Form() {
 
             <Grid2 size={6}>
               <FormControl fullWidth>
-                <InputLabel id="propriedade">Propriedades *</InputLabel>
+                <InputLabel id="propriedade">Propriedade *</InputLabel>
                 <Select
                   label="Propriedade"
                   variant="filled"
                   {...register("propriedade")}
                   error={!!errors.propriedade}
                   defaultValue={"" as any}
+                  renderValue={(selected) => {
+                    const selectedPropriedade = findPropriedadeByName(selected);
+                    return selectedPropriedade ? selectedPropriedade.nome : "";
+                  }}
                 >
-                  <MenuItem value="1">1</MenuItem>
-                  <MenuItem value="2">2</MenuItem>
+                  {propriedades?.map((propriedade) => (
+                    <MenuItem value={propriedade.nome} key={propriedade.id}>
+                      <Stack direction="column">
+                        <Typography variant="body1" color="#000">
+                          {propriedade.nome}
+                        </Typography>
+                        <Typography variant="caption">
+                          CNPJ {propriedade.cnpj}
+                        </Typography>
+                      </Stack>
+                    </MenuItem>
+                  ))}
                 </Select>
                 {errors.propriedade && (
                   <Typography variant="caption" color="error" marginLeft={2}>
                     {errors.propriedade.message}
+                  </Typography>
+                )}
+                {propriedadeInput && (
+                  <Typography
+                    variant="caption"
+                    color="textSecondary"
+                    marginTop={0.5}
+                    marginLeft={1}
+                  >
+                    CNPJ: {findPropriedadeByName(propriedadeInput)?.cnpj}
                   </Typography>
                 )}
               </FormControl>
