@@ -18,6 +18,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useGetPropriedades } from "../../hooks/queries/use-get-propriedades";
 import { DefaultForm, formSchema } from "./form-schema";
+import { useGetLaboratorios } from "../../hooks/queries/use-get-laboratorios";
 
 export function Form() {
   const {
@@ -30,6 +31,7 @@ export function Form() {
   });
 
   const { data: propriedades } = useGetPropriedades();
+  const { data: laboratorios } = useGetLaboratorios();
   const propriedadeInput = watch("propriedade");
   const findPropriedadeByName = (nome: string) => {
     return propriedades?.find((prop) => prop.nome === nome);
@@ -165,8 +167,13 @@ export function Form() {
                   error={!!errors.laboratorio}
                   defaultValue={"" as any}
                 >
-                  <MenuItem value="1">1</MenuItem>
-                  <MenuItem value="2">2</MenuItem>
+                  {laboratorios?.map((laboratorio) => (
+                    <MenuItem value={laboratorio.nome} key={laboratorio.id}>
+                      <Typography variant="body1">
+                        {laboratorio.nome}
+                      </Typography>
+                    </MenuItem>
+                  ))}
                 </Select>
                 {errors.laboratorio && (
                   <Typography variant="caption" color="error" marginLeft={2}>
