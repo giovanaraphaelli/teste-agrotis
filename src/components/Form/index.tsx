@@ -32,13 +32,38 @@ export function Form() {
 
   const { data: propriedades } = useGetPropriedades();
   const { data: laboratorios } = useGetLaboratorios();
+
   const propriedadeInput = watch("propriedade");
+
   const findPropriedadeByName = (nome: string) => {
     return propriedades?.find((prop) => prop.nome === nome);
   };
 
+  const findLaboratorioByName = (nome: string) => {
+    return laboratorios?.find((lab) => lab.nome === nome);
+  };
+
   const onSubmit = (data: DefaultForm) => {
-    console.log(data);
+    const propriedadeSelecionada = findPropriedadeByName(data.propriedade);
+    const laboratorioSelecionado = findLaboratorioByName(data.laboratorio);
+
+    const payload = {
+      nome: data.nome,
+      dataInicial: data.data.dataInicial.toISOString(),
+      dataFinal: data.data.dataFinal.toISOString(),
+      infosPropriedade: {
+        id: propriedadeSelecionada?.id,
+        nome: data.propriedade,
+      },
+      cnpj: propriedadeSelecionada?.cnpj,
+      laboratorio: {
+        id: laboratorioSelecionado?.id,
+        nome: data.laboratorio,
+      },
+      observacoes: data.observacoes || "",
+    };
+
+    console.log(payload);
   };
 
   return (
