@@ -10,7 +10,6 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
         <Box height="100vh" display="flex" flexDirection="column">
           <Header />
           <Box flex={1} p="2rem 1rem" overflow="auto">
@@ -18,6 +17,7 @@ export function App() {
           </Box>
         </Box>
       </ThemeProvider>
+      <CssBaseline />
       <ToastContainer />
     </QueryClientProvider>
   );
