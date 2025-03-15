@@ -28,7 +28,7 @@ export const formSchema = z.object({
     ),
   propriedade: z.string().min(1, "Campo obrigatório"),
   laboratorio: z.string().min(1, "Campo obrigatório"),
-  observacoes: z.string().optional(),
+  observacoes: z.string().max(1000, "Máximo de 1000 caracteres").optional(),
 });
 
 export type DefaultForm = z.infer<typeof formSchema>;

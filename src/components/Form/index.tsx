@@ -45,6 +45,7 @@ export function Form() {
   }
 
   const propriedadeInput = watch("propriedade");
+  const observacoesInput = watch("observacoes");
 
   const findPropriedadeByName = (nome: string) => {
     return propriedades?.find((prop) => prop.nome === nome);
@@ -235,6 +236,14 @@ export function Form() {
                 error={!!errors.observacoes}
                 helperText={errors.observacoes?.message}
               />
+
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                sx={{ display: "block", textAlign: "right", mt: 0.5 }}
+              >
+                {observacoesInput?.length} / 1000
+              </Typography>
             </Grid2>
           </Grid2>
         </CardContent>
